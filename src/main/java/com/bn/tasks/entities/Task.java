@@ -1,5 +1,6 @@
 package com.bn.tasks.entities;
 
+import com.bn.tasks.enums.TaskPriority;
 import com.bn.tasks.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
@@ -30,7 +31,7 @@ public class Task {
     private TaskStatus status;
 
     @Column(columnDefinition = "default 0")
-    private TaskStatus priority;
+    private TaskPriority priority;
 
     private LocalDateTime dataToStart;
 
@@ -45,4 +46,5 @@ public class Task {
     @Column(nullable = false, insertable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
+
 }

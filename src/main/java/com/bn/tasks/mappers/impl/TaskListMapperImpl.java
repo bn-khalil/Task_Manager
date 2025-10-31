@@ -5,24 +5,46 @@ import com.bn.tasks.entities.TaskList;
 import com.bn.tasks.mappers.TaskListMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @Component
 public class TaskListMapperImpl implements TaskListMapper {
+
+    final private TaskMapperImpl taskMapper;
+
+    public TaskListMapperImpl(TaskMapperImpl taskMapper) {
+        this.taskMapper = taskMapper;
+    }
+
     @Override
     public TaskList fromDto(TaskListDto taskListDto) {
         return new TaskList(
                 taskListDto.id(),
                 taskListDto.title(),
                 taskListDto.description(),
+                Optional.ofNullable(taskListDto.tasksDto())
+                        .map(taskDtos -> taskDtos
+                                .stream()
+                                .map(this.taskMapper::fromDto)
+                                .toList())
+                        .orElse(null),
                 null,
-                null,
+                null
         );
     }
 
     @Override
     public TaskListDto toDto(TaskList taskList) {
-        return null;
+        return new TaskListDto(
+                taskList.getId(),
+                taskList.getTile(),
+                taskList.getDescription(),
+                Optional.ofNullable(taskList.getTasks())
+                        .map(tasks -> tasks
+                                .stream()
+                                .map(taskMapper::toDto)
+                                .toList())
+                        .orElse(null)
+        );
     }
 }
