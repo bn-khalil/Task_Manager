@@ -37,7 +37,7 @@ public class TaskList {
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(nullable = false, insertable = false)
+    @Column(insertable = false)
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 }

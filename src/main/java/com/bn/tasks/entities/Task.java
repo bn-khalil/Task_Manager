@@ -27,10 +27,8 @@ public class Task {
 
     private String description;
 
-    @Column(columnDefinition = "default 0")
     private TaskStatus status;
 
-    @Column(columnDefinition = "default 0")
     private TaskPriority priority;
 
     private LocalDateTime dataToStart;

@@ -1,4 +1,4 @@
-package com.bn.tasks.mappers.impl;
+package com.bn.tasks.mappers.Impl;
 
 import com.bn.tasks.dto.TaskDto;
 import com.bn.tasks.entities.Task;
