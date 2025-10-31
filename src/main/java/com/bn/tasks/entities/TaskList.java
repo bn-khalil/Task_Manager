@@ -25,6 +25,8 @@ public class TaskList {
     @Column(nullable = false )
     private String tile;
 
+    private String description;
+
     @OneToMany(mappedBy = "taskList", cascade ={
             CascadeType.REMOVE,
             CascadeType.PERSIST
