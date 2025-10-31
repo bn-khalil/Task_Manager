@@ -4,14 +4,17 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Data
+@Entity
 @Table(name = "task_list")
 public class TaskList {
     @Id
@@ -22,6 +25,17 @@ public class TaskList {
     @Column(nullable = false )
     private String tile;
 
-    @OneToMany(mappedBy = "taskList", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "taskList", cascade ={
+            CascadeType.REMOVE,
+            CascadeType.PERSIST
+    })
     private List<Task> tasks;
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt;
+
+    @Column(nullable = false, insertable = false)
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }

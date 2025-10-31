@@ -3,6 +3,8 @@ package com.bn.tasks.entities;
 import com.bn.tasks.enums.TaskStatus;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -36,9 +38,11 @@ public class Task {
     @JoinColumn(name = "task_list_id", nullable = false )
     private TaskList taskList;
 
-    @Column(updatable = false)
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
-    @Column(insertable = false)
+    @Column(nullable = false, insertable = false)
+    @UpdateTimestamp
     private LocalDateTime updatedAt;
 }
